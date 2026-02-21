@@ -132,3 +132,8 @@ schools:
     name: "南京师范大学"
     initial: "N"
     resource_folder: "NJNU"
+
+  - id: "NEUQ"
+    name: "东北大学秦皇岛分校"
+    initial: "D"
+    resource_folder: "NEUQ"
