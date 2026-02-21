@@ -1,0 +1,9 @@
+# resources/NEUQ/adapters.yaml
+adapters:
+  - adapter_id: "NEUQ_1"
+    adapter_name: "东北大学秦皇岛分校教务适配"
+    category: "BACHELOR_AND_ASSOCIATE"
+    asset_js_path: "neuq_1.js"
+    import_url: "http://jwxt.neuq.edu.cn/"
+    maintainer: "cute-omega"
+    description: "为什么不能和东北大学共用一个教务呢？我也不知道"
