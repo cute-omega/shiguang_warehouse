@@ -1,5 +1,23 @@
-// 为什么好几个支持的其他学校都是非本校学生写的？也帮我写一个呗
 // 增强：可以抄一下MMPT的登陆检测逻辑
+
+async function raiseError(message, error = undefined) {
+  console.error(message, error);
+  await window.AndroidBridgePromise.showAlert(
+    "出错了",
+    message + " " + (error && error.message ? error.message : ""),
+    "我知道了",
+  );
+}
+
+async function raiseWarning(message, warning = undefined) {
+  console.warn(message, warning);
+  AndroidBridge.showToast(
+    "警告：" +
+      message +
+      " " +
+      (warning && warning.message ? warning.message : ""),
+  );
+}
 
 // 1. 显示一个公告信息弹窗
 async function demoAlert() {
@@ -16,8 +34,7 @@ async function demoAlert() {
       return false; // 用户取消时返回 false
     }
   } catch (error) {
-    console.error("显示公告弹窗时发生错误:", error);
-    AndroidBridge.showToast("Alert：显示弹窗出错！" + error.message);
+    await raiseWarning("显示公告弹窗时发生错误:", error);
     return false; // 出现错误时也返回 false
   }
 }
@@ -35,7 +52,9 @@ async function extractCoursesFromPage() {
   const table = doc.querySelector("#manualArrangeCourseTable");
   const lessons = [];
   if (!table) {
-    console.warn("未找到 #manualArrangeCourseTable 表格");
+    await raiseError(
+      "当前页面未识别到课程表格，无法提取课程数据。请确认已经登陆教务系统并打开了课表页面。",
+    );
     return { lessons: [], time_text: "" };
   }
 
@@ -105,6 +124,82 @@ async function extractCoursesFromPage() {
     }
   }
 
+  // 仅“括号内以数字开头”的行才视为周次+地点详情行
+  const isWeekLocationLine = (s) =>
+    /^\(?\s*\d{1,2}(?:\s*-\s*\d{1,2})?/.test((s || "").trim());
+
+  // 将“课程说明行”追加到课程名后缀，并尽量保持教师尾注在最后，便于后续提取教师
+  const appendNameSuffix = (baseName, suffixLines) => {
+    const suffix = (suffixLines || [])
+      .map((line) => {
+        const t = (line || "").trim();
+        if (!t) return "";
+        // 非周次行若是整行括号，去掉外层括号再拼接
+        if (/^\(.*\)$/.test(t) && !isWeekLocationLine(t)) {
+          return t.slice(1, -1).trim();
+        }
+        return t;
+      })
+      .filter(Boolean)
+      .join(" ");
+
+    if (!suffix) return (baseName || "").trim();
+
+    const base = (baseName || "").trim();
+    const teacherTail = base.match(/\(([^()]+)\)\s*$/);
+    if (!teacherTail) {
+      return [base, suffix].filter(Boolean).join(" ").trim();
+    }
+
+    const teacherPart = teacherTail[0].trim();
+    const nameWithoutTeacher = base.replace(/\([^()]+\)\s*$/, "").trim();
+    return [nameWithoutTeacher, suffix, teacherPart]
+      .filter(Boolean)
+      .join(" ")
+      .trim();
+  };
+
+  // 将单元格文本拆成 [name, detail] 对。detail 必须是“括号内以数字开头”的行。
+  const pairCourseLines = (td, rawTitle) => {
+    const normalized = (rawTitle || td.innerHTML || td.innerText || "")
+      .replace(/;;/g, "\n")
+      .replace(/<br\s*\/?>/gi, "\n");
+
+    const lines = normalized
+      .split("\n")
+      .flatMap((s) => s.split(";"))
+      .map((s) => s.replace(/<[^>]+>/g, "").trim())
+      .filter(Boolean);
+
+    const paired = [];
+    let currentName = "";
+    let nameSuffixLines = [];
+
+    for (const line of lines) {
+      if (isWeekLocationLine(line)) {
+        const finalName = appendNameSuffix(currentName, nameSuffixLines);
+        paired.push([finalName, line]);
+        currentName = "";
+        nameSuffixLines = [];
+        continue;
+      }
+
+      // 非周次行：第一行作为课程名，后续行作为课程说明后缀
+      if (!currentName) {
+        currentName = line;
+      } else {
+        nameSuffixLines.push(line);
+      }
+    }
+
+    // 兜底：没有匹配到周次+地点时，仍保留课程名
+    if (currentName || nameSuffixLines.length > 0) {
+      paired.push([appendNameSuffix(currentName, nameSuffixLines), ""]);
+    }
+
+    return paired;
+  };
+
   // 逐格读取 grid 中的起始单元，解析课程
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
@@ -119,122 +214,7 @@ async function extractCoursesFromPage() {
       const raw = title.trim();
       if (!raw) continue;
 
-      // 解析单元格中可能包含的多门课程。
-      // 优先按 ';;' 分隔（有些 title 使用该分隔），否则按 <br> 换行分解并基于行型态配对：
-      // 单门课程通常为: [课程名(包含教师)] <br><br> [周次与地点]
-      // 多门课程之间通常以单个 <br> 相连。我们将把行合成为 name/detail 对。
-      let parts = raw
-        .split(";;")
-        .map((s) => s.trim())
-        .filter(Boolean);
-      if (parts.length >= 1) {
-        // 有时单个 ';;' 片段内部还用 ';' 连接多个条目，扁平化处理
-        parts = parts
-          .map((p) => p.split(";"))
-          .flat()
-          .map((s) => s.trim())
-          .filter(Boolean);
-      }
-
-      if (parts.length < 2) {
-        // 将所有 <br> 转为换行并分行，但保留顺序
-        const normalized = (td.innerHTML || "").replace(/<br\s*\/?>/gi, "\n");
-        const rawLines = normalized
-          .split("\n")
-          .map((s) => s.replace(/<[^>]+>/g, "").trim());
-        const lines = rawLines; // 保留空行以识别双换行
-
-        parts = [];
-        for (let i = 0; i < lines.length; i++) {
-          const line = (lines[i] || "").trim();
-          if (!line) continue; // 空行忽略
-
-          const isDetailLike = (s) =>
-            /^\(?\d{1,2}(-\d{1,2})?/.test(s) ||
-            /^\(.*\)/.test(s) ||
-            (/\d/.test(s) && /[,，、]/.test(s));
-
-          // 向前查找下一个非空行（最多查找 4 行），以支持多次 <br> 导致的空行
-          let found = false;
-          for (let j = i + 1; j <= Math.min(i + 4, lines.length - 1); j++) {
-            const cand = (lines[j] || "").trim();
-            if (!cand) continue; // 跳过空行
-            if (isDetailLike(cand)) {
-              parts.push(line);
-              parts.push(cand);
-              i = j; // 跳过到 detail 行
-              found = true;
-            }
-            // 无论是否 detail-like，遇到第一个非空行后都停止查找（已处理或判断为非 detail）
-            break;
-          }
-
-          if (!found) {
-            parts.push(line);
-          }
-        }
-      }
-
-      // 仅“括号内数字开头”的行才视为周次+地点；其他行视为课程名补充说明
-      const isWeekDetailLine = (s) =>
-        /^\s*\(?\d{1,2}(?:-\d{1,2})?/.test(s || "");
-      const normalizeNameSuffix = (s) =>
-        (s || "").replace(/^\s*[（(]+\s*|\s*[)）]+\s*$/g, "").trim();
-
-      // 如果 parts 仍然是交替模式，确保我们有 name/detail 对序列：当检测到 name 后寻找最近的 detail
-      const tokens = parts.slice();
-      const paired = [];
-      const isNameLike = (s) => /[\u4e00-\u9fa5]+/.test(s) && /\(/.test(s);
-      for (let i = 0; i < tokens.length; i++) {
-        const t = tokens[i];
-        if (isNameLike(t)) {
-          // look ahead for detail; 中间非周次行拼接为课程名后缀
-          let nameWithSuffix = t;
-          let detail = "";
-          let j = i + 1;
-          while (j < tokens.length) {
-            const cand = tokens[j];
-            if (isWeekDetailLine(cand)) {
-              detail = cand;
-              j++;
-              break;
-            }
-
-            // 下一条已经是新的课程名，则当前课程无 detail
-            if (isNameLike(cand)) break;
-
-            // 否则按课程名说明后缀处理
-            const suffix = normalizeNameSuffix(cand);
-            if (suffix) {
-              nameWithSuffix = `${nameWithSuffix} ${suffix}`.trim();
-            }
-            j++;
-          }
-
-          paired.push([nameWithSuffix, detail]);
-          i = j - 1;
-        } else if (isWeekDetailLine(t)) {
-          // orphan detail without preceding name — skip or attach to previous
-          if (paired.length > 0 && !paired[paired.length - 1][1]) {
-            paired[paired.length - 1][1] = t;
-          } else {
-            // treat as nameless detail
-            paired.push(["", t]);
-          }
-        } else {
-          // neither clearly name nor detail: 视为说明文本
-          const suffix = normalizeNameSuffix(t);
-          if (paired.length > 0 && suffix && !paired[paired.length - 1][1]) {
-            paired[paired.length - 1][0] =
-              `${paired[paired.length - 1][0]} ${suffix}`.trim();
-          } else if (i + 1 < tokens.length && isWeekDetailLine(tokens[i + 1])) {
-            paired.push([suffix || t, tokens[i + 1]]);
-            i++;
-          } else {
-            paired.push([suffix || t, ""]);
-          }
-        }
-      }
+      const paired = pairCourseLines(td, raw);
 
       // 如果 parts 是交替的（课程名, 详情, 课程名, 详情...），按对儿处理
       for (const [namePart, detailPart] of paired) {
@@ -262,7 +242,41 @@ async function extractCoursesFromPage() {
   const m = bodyText.match(/\d{4}-\d{4}学年(春季|秋季)学期/);
   if (m) time_text = m[0];
 
-  return { lessons: lessons, time_text: time_text };
+  // 返回前去重：名称、教师、周次、地点与时间信息完全一致才视为重复
+  const dedupeLessons = (items) => {
+    const seen = new Set();
+    const unique = [];
+    for (const item of items || []) {
+      const weeks = Array.isArray(item.weeks)
+        ? Array.from(
+            new Set(item.weeks.map((w) => Number(w)).filter((w) => !isNaN(w))),
+          ).sort((a, b) => a - b)
+        : [];
+
+      const keyObj = {
+        name: (item.name || "").trim(),
+        teacher: (item.teacher || "").trim(),
+        location: (item.location || "").trim(),
+        weeks: weeks,
+        dayOfWeek: Number(item.dayOfWeek) || 0,
+        startSection: Number(item.startSection) || 0,
+        sectionCount: Number(item.sectionCount) || 0,
+      };
+      const key = JSON.stringify(keyObj);
+      if (seen.has(key)) continue;
+      seen.add(key);
+
+      unique.push({
+        ...item,
+        weeks: weeks,
+      });
+    }
+    return unique;
+  };
+
+  const uniqueLessons = dedupeLessons(lessons);
+
+  return { lessons: uniqueLessons, time_text: time_text };
 }
 
 // 2.1 解析课程详情字符串，提取周次、教师和地点信息
@@ -273,40 +287,18 @@ function parseCourseDetails(nameStr, detailStr) {
   if (!nameStr && !detailStr) return result;
 
   // 解析课程名
-  // 优先匹配“课程代码 + (教师)”的结构，避免说明后缀影响教师识别
-  let normalizedName = (nameStr || "").trim();
-  const teacherAfterCodeMatch = normalizedName.match(
-    /\(\d[^()]*\)\s*\(([^()]+)\)/,
-  );
-  if (teacherAfterCodeMatch) {
-    result.teacher = teacherAfterCodeMatch[1].trim();
-    normalizedName = normalizedName.replace(
-      /\(\d[^()]*\)\s*\(([^()]+)\)/,
-      (m) => m.replace(/\s*\([^()]+\)\s*$/, ""),
-    );
+  // 先尝试提取教师：通常以最后一对小括号表示教师
+  const teacherMatch = nameStr.match(/\(([^()]+)\)\s*$/);
+  if (teacherMatch) {
+    result.teacher = teacherMatch[1].trim();
+    // 去掉尾部的 (教师)
+    result.name = nameStr.replace(/\([^()]*\)\s*$/, "").trim();
   } else {
-    // 兜底：若末尾是教师括号，按旧逻辑处理
-    const teacherMatch = normalizedName.match(/\(([^()]+)\)\s*$/);
-    if (teacherMatch) {
-      result.teacher = teacherMatch[1].trim();
-      normalizedName = normalizedName.replace(/\([^()]*\)\s*$/, "").trim();
-    }
+    result.name = nameStr.trim();
   }
-  result.name = normalizedName.replace(/\s+/g, " ").trim();
 
   // 从 detailStr 中提取周次与地点，常见格式例如："(9-16,工学馆511(学校本部)" 或 "9-16,工学馆511"
   const rawDetail = (detailStr || "").trim();
-  const isWeekDetailLine = (s) => /^\s*\(?\d{1,2}(?:-\d{1,2})?/.test(s || "");
-
-  // 非数字开头的 detail 视为课程说明后缀，不当作地点
-  if (rawDetail && !isWeekDetailLine(rawDetail)) {
-    const suffix = rawDetail.replace(/^[\(\s]+|[\)\s]+$/g, "").trim();
-    if (suffix) {
-      result.name = `${result.name} ${suffix}`.replace(/\s+/g, " ").trim();
-    }
-    return result;
-  }
-
   let s = rawDetail.replace(/^[\(\s]+|[\)\s]+$/g, ""); // 去除外层括号或空白
 
   let weeks = [];
@@ -495,15 +487,11 @@ async function SaveCourses(lessons) {
       console.log("课程导入成功！");
       return true;
     } else {
-      console.log("课程导入未成功，结果：" + result);
-      AndroidBridge.showToast("测试课程导入失败，请查看日志。");
+      await raiseError("课程导入未成功，结果：" + new String(result));
       return false;
     }
   } catch (error) {
-    console.error("导入课程时发生错误:", error);
-    AndroidBridge.showToast(
-      "导入课程失败: " + (error && error.message ? error.message : error),
-    );
+    await raiseError("导入课程时发生错误:", error);
     return false;
   }
 }
@@ -535,12 +523,10 @@ async function importPresetTimeSlots() {
     if (result === true) {
       console.log("预设时间段导入成功！");
     } else {
-      console.log("预设时间段导入未成功，结果：" + result);
-      window.AndroidBridge.showToast("测试时间段导入失败，请查看日志。");
+      await raiseError("预设时间段导入未成功，结果：" + new String(result));
     }
   } catch (error) {
-    console.error("导入时间段时发生错误:", error);
-    window.AndroidBridge.showToast("导入时间段失败: " + error.message);
+    await raiseError("导入时间段时发生错误:", error);
   }
 }
 
@@ -567,12 +553,10 @@ async function SaveConfig(time_text) {
     if (result === true) {
       console.log("课表配置导入成功！");
     } else {
-      console.log("课表配置导入未成功，结果：" + result);
-      AndroidBridge.showToast("测试配置导入失败，请查看日志。");
+      await raiseError("课表配置导入未成功，结果：" + new String(result));
     }
   } catch (error) {
-    console.error("导入配置时发生错误:", error);
-    AndroidBridge.showToast("导入配置失败: " + error.message);
+    await raiseError("导入配置时发生错误:", error);
   }
 }
 
@@ -580,16 +564,12 @@ async function SaveConfig(time_text) {
  * 编排这些异步操作，并在用户取消时停止后续执行。
  */
 async function runAllDemosSequentially() {
-  AndroidBridge.showToast("所有演示将按顺序开始...");
   // 1. 提示公告
   const alertResult = await demoAlert();
   if (!alertResult) {
     console.log("用户取消了 Alert 演示，停止后续执行。");
     return; // 用户取消，立即退出函数
   }
-
-  console.log("所有弹窗演示已完成。");
-  AndroidBridge.showToast("所有弹窗演示已完成！");
 
   // 以下是数据导入，与用户交互无关，可以继续
   const PageInfo = await extractCoursesFromPage(); //从课表页面中提取课程数据
