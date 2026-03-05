@@ -1,0 +1,308 @@
+{
+  "courses": [
+    {
+      "name": "数学建模(3020113021.01)",
+      "teacher": "王军",
+      "position": "工学馆511(学校本部)",
+      "day": 5,
+      "startSection": 1,
+      "endSection": 2,
+      "weeks": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "信息资源组织与管理(3020113013.01)",
+      "teacher": "张鑫蕊",
+      "position": "工学馆514(学校本部)",
+      "day": 5,
+      "startSection": 1,
+      "endSection": 2,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "就业指导(2070011002.10)",
+      "teacher": "刘小杰",
+      "position": "工学馆306(学校本部)",
+      "day": 1,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "形势与政策（三）(3080511003.22)",
+      "teacher": "付宏鹏",
+      "position": "工学馆406(学校本部)",
+      "day": 1,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        13,
+        14
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "形势与政策（三）(3080511003.22)",
+      "teacher": "齐芳",
+      "position": "工学馆406(学校本部)",
+      "day": 1,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        15,
+        16
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "数学建模(3020113021.01)",
+      "teacher": "王军",
+      "position": "工学馆511(学校本部)",
+      "day": 3,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "信息资源组织与管理(3020113013.01)",
+      "teacher": "张鑫蕊",
+      "position": "工学馆514(学校本部)",
+      "day": 3,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "供应链管理(3020113020.01)",
+      "teacher": "王素欣",
+      "position": "工学馆331(学校本部)",
+      "day": 2,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "供应链管理(3020113020.01)",
+      "teacher": "王素欣",
+      "position": "工学馆331(学校本部)",
+      "day": 4,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "统计学习与机器学习(3020113040.01)",
+      "teacher": "赵煜辉",
+      "position": "工学馆221(学校本部)",
+      "day": 2,
+      "startSection": 7,
+      "endSection": 8,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "金融数据分析的机器学习方法(3020113056.01)",
+      "teacher": "秦思萌",
+      "position": "工学馆506(学校本部)",
+      "day": 2,
+      "startSection": 7,
+      "endSection": 8,
+      "weeks": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "统计学习与机器学习(3020113040.01)",
+      "teacher": "赵煜辉",
+      "position": "工学馆221(学校本部)",
+      "day": 4,
+      "startSection": 7,
+      "endSection": 8,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "金融数据分析的机器学习方法(3020113056.01)",
+      "teacher": "秦思萌",
+      "position": "工学馆506(学校本部)",
+      "day": 4,
+      "startSection": 7,
+      "endSection": 8,
+      "weeks": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "isCustomTime": false
+    }
+  ],
+  "timeSlots": [
+    {
+      "number": 1,
+      "startTime": "08:00",
+      "endTime": "08:45"
+    },
+    {
+      "number": 2,
+      "startTime": "08:50",
+      "endTime": "09:35"
+    },
+    {
+      "number": 3,
+      "startTime": "10:05",
+      "endTime": "10:50"
+    },
+    {
+      "number": 4,
+      "startTime": "10:55",
+      "endTime": "11:40"
+    },
+    {
+      "number": 5,
+      "startTime": "14:00",
+      "endTime": "14:45"
+    },
+    {
+      "number": 6,
+      "startTime": "14:50",
+      "endTime": "15:35"
+    },
+    {
+      "number": 7,
+      "startTime": "16:05",
+      "endTime": "16:50"
+    },
+    {
+      "number": 8,
+      "startTime": "16:55",
+      "endTime": "17:40"
+    },
+    {
+      "number": 9,
+      "startTime": "18:40",
+      "endTime": "19:25"
+    },
+    {
+      "number": 10,
+      "startTime": "19:30",
+      "endTime": "20:15"
+    },
+    {
+      "number": 11,
+      "startTime": "20:25",
+      "endTime": "21:10"
+    },
+    {
+      "number": 12,
+      "startTime": "21:15",
+      "endTime": "22:00"
+    }
+  ],
+  "config": {
+    "semesterStartDate": null,
+    "semesterTotalWeeks": 20,
+    "defaultClassDuration": 45,
+    "defaultBreakDuration": 5,
+    "firstDayOfWeek": 1
+  }
+}

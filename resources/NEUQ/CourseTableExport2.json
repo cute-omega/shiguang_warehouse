@@ -1,0 +1,658 @@
+{
+  "courses": [
+    {
+      "name": "面向对象程序设计(3020113061.01)",
+      "teacher": "丁斌",
+      "position": "Java面向对象编程",
+      "day": 2,
+      "startSection": 1,
+      "endSection": 2,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "(12-14,科技楼4074",
+      "teacher": "新校区",
+      "position": "面向对象程序设计综合训练",
+      "day": 2,
+      "startSection": 1,
+      "endSection": 2,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "(15-17,科技楼4074",
+      "teacher": "新校区",
+      "position": "Java语言基础",
+      "day": 2,
+      "startSection": 1,
+      "endSection": 2,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "(11,科技楼4074",
+      "teacher": "新校区",
+      "position": "工学馆116(学校本部)",
+      "day": 2,
+      "startSection": 1,
+      "endSection": 2,
+      "weeks": [
+        10
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "面向对象程序设计(3020113061.01)",
+      "teacher": "丁斌",
+      "position": "Java开发环境",
+      "day": 3,
+      "startSection": 1,
+      "endSection": 2,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "(9,科技楼4074",
+      "teacher": "新校区",
+      "position": "Java语言基础",
+      "day": 3,
+      "startSection": 1,
+      "endSection": 2,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "(10,科技楼4074",
+      "teacher": "新校区",
+      "position": "",
+      "day": 3,
+      "startSection": 1,
+      "endSection": 2,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "面向对象程序设计(3020113061.01)",
+      "teacher": "丁斌",
+      "position": "工学馆216(学校本部)",
+      "day": 5,
+      "startSection": 1,
+      "endSection": 2,
+      "weeks": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "商务英语(3050311013.01)",
+      "teacher": "王美美",
+      "position": "工学馆119(学校本部)",
+      "day": 6,
+      "startSection": 2,
+      "endSection": 2,
+      "weeks": [
+        13
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "离散数学(3060111503.02)",
+      "teacher": "郭静梅",
+      "position": "工学馆304(学校本部)",
+      "day": 1,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "面向对象程序设计(3020113061.01)",
+      "teacher": "丁斌",
+      "position": "Java面向对象编程",
+      "day": 2,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "(12-14,科技楼4074",
+      "teacher": "新校区",
+      "position": "面向对象程序设计综合训练",
+      "day": 2,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "(15-17,科技楼4074",
+      "teacher": "新校区",
+      "position": "Java语言基础",
+      "day": 2,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "(11,科技楼4074",
+      "teacher": "新校区",
+      "position": "工学馆126(学校本部)",
+      "day": 2,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "面向对象程序设计(3020113061.01)",
+      "teacher": "丁斌",
+      "position": "工学馆315(学校本部)",
+      "day": 3,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "离散数学(3060111503.02)",
+      "teacher": "郭静梅",
+      "position": "工学馆104(学校本部)",
+      "day": 4,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "大学物理-力学(3070111001.01)",
+      "teacher": "张晓燕",
+      "position": "工学馆203(学校本部)",
+      "day": 5,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "创业基础(3020014002.01)",
+      "teacher": "沈洪涛",
+      "position": "工学馆306(学校本部)",
+      "day": 5,
+      "startSection": 3,
+      "endSection": 4,
+      "weeks": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "军事理论(3090111001.09)",
+      "teacher": "龙腾",
+      "position": "工学馆129(学校本部)",
+      "day": 6,
+      "startSection": 3,
+      "endSection": 3,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "商务英语(3050311013.01)",
+      "teacher": "王美美",
+      "position": "工学馆119(学校本部)",
+      "day": 6,
+      "startSection": 3,
+      "endSection": 3,
+      "weeks": [
+        13
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "军事理论(3090111001.09)",
+      "teacher": "龙腾",
+      "position": "工学馆129(学校本部)",
+      "day": 6,
+      "startSection": 4,
+      "endSection": 4,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "体育(三)瑜伽(3090011003.33)",
+      "teacher": "张忠子",
+      "position": "瑜伽室（科技楼9065）(新校区)",
+      "day": 1,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "大学物理-力学(3070111001.01)",
+      "teacher": "张晓燕",
+      "position": "工学馆203(学校本部)",
+      "day": 2,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "面向对象程序设计(3020113061.01)",
+      "teacher": "丁斌",
+      "position": "面向对象程序设计综合训练",
+      "day": 2,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "(16-17,科技楼4074",
+      "teacher": "新校区",
+      "position": "",
+      "day": 2,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [],
+      "isCustomTime": false
+    },
+    {
+      "name": "大学物理-电磁学(3070111002.01)",
+      "teacher": "张晓燕",
+      "position": "工学馆330(学校本部)",
+      "day": 3,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "概率论与数理统计A2(3060111305.03)",
+      "teacher": "王翠萍",
+      "position": "工学馆204(学校本部)",
+      "day": 3,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "创业基础(3020014002.01)",
+      "teacher": "沈洪涛",
+      "position": "工学馆122(学校本部)",
+      "day": 4,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "概率论与数理统计A2(3060111305.03)",
+      "teacher": "王翠萍",
+      "position": "工学馆204(学校本部)",
+      "day": 4,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "大学物理-电磁学(3070111002.01)",
+      "teacher": "张晓燕",
+      "position": "工学馆330(学校本部)",
+      "day": 5,
+      "startSection": 5,
+      "endSection": 6,
+      "weeks": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "概率论与数理统计A2(3060111305.03)",
+      "teacher": "王翠萍",
+      "position": "工学馆204(学校本部)",
+      "day": 1,
+      "startSection": 7,
+      "endSection": 8,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "商务英语(3050311013.01)",
+      "teacher": "王美美",
+      "position": "工学馆425(学校本部)",
+      "day": 4,
+      "startSection": 7,
+      "endSection": 8,
+      "weeks": [
+        14,
+        16
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "商务英语(3050311013.01)",
+      "teacher": "王美美",
+      "position": "停课(学校本部)",
+      "day": 4,
+      "startSection": 7,
+      "endSection": 8,
+      "weeks": [
+        7
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "商务英语(3050311013.01)",
+      "teacher": "王美美",
+      "position": "工学馆127(学校本部)",
+      "day": 4,
+      "startSection": 7,
+      "endSection": 8,
+      "weeks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        15,
+        17
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "统计学(3020212105.04)",
+      "teacher": "董明涛",
+      "position": "工学馆126(学校本部)",
+      "day": 1,
+      "startSection": 9,
+      "endSection": 10,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "军事理论(3090111001.09)",
+      "teacher": "龙腾",
+      "position": "工学馆129(学校本部)",
+      "day": 4,
+      "startSection": 9,
+      "endSection": 10,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "isCustomTime": false
+    },
+    {
+      "name": "离散数学(3060111503.02)",
+      "teacher": "郭静梅",
+      "position": "工学馆104(学校本部)",
+      "day": 5,
+      "startSection": 9,
+      "endSection": 10,
+      "weeks": [
+        8
+      ],
+      "isCustomTime": false
+    }
+  ],
+  "timeSlots": [
+    {
+      "number": 1,
+      "startTime": "08:00",
+      "endTime": "08:45"
+    },
+    {
+      "number": 2,
+      "startTime": "08:50",
+      "endTime": "09:35"
+    },
+    {
+      "number": 3,
+      "startTime": "10:05",
+      "endTime": "10:50"
+    },
+    {
+      "number": 4,
+      "startTime": "10:55",
+      "endTime": "11:40"
+    },
+    {
+      "number": 5,
+      "startTime": "14:00",
+      "endTime": "14:45"
+    },
+    {
+      "number": 6,
+      "startTime": "14:50",
+      "endTime": "15:35"
+    },
+    {
+      "number": 7,
+      "startTime": "16:05",
+      "endTime": "16:50"
+    },
+    {
+      "number": 8,
+      "startTime": "16:55",
+      "endTime": "17:40"
+    },
+    {
+      "number": 9,
+      "startTime": "18:40",
+      "endTime": "19:25"
+    },
+    {
+      "number": 10,
+      "startTime": "19:30",
+      "endTime": "20:15"
+    },
+    {
+      "number": 11,
+      "startTime": "20:25",
+      "endTime": "21:10"
+    },
+    {
+      "number": 12,
+      "startTime": "21:15",
+      "endTime": "22:00"
+    }
+  ],
+  "config": {
+    "semesterStartDate": null,
+    "semesterTotalWeeks": 20,
+    "defaultClassDuration": 45,
+    "defaultBreakDuration": 5,
+    "firstDayOfWeek": 1
+  }
+}
